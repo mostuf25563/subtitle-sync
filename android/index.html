@@ -139,29 +139,9 @@
         color: #34d399;
         border: 1px solid rgba(16, 185, 129, 0.4);
       }
-      .nav-bar {
-        display: flex;
-        gap: 1rem;
-        margin-bottom: 1.5rem;
-        padding-bottom: 1rem;
-        border-bottom: 1px solid #1f2937;
-      }
-      .nav-link {
-        color: #38bdf8;
-        font-weight: 600;
-        font-size: 0.9rem;
-      }
     </style>
   </head>
   <body>
-    <div class="nav-bar">
-      <a href="../demo/" class="nav-link">← Live Web Demo (/demo)</a>
-      <a href="../web/" class="nav-link">Web E2E Tests (/web)</a>
-      <span style="color: #94a3b8; font-weight: 600; font-size: 0.9rem"
-        >Android E2E Emulation (/android)</span
-      >
-    </div>
-
     <h1>Android Device & Emulator E2E Test Report</h1>
     <p>
       Authentic runtime execution and WebView interception test report on Android devices and
@@ -176,24 +156,15 @@
         favorite languages fetching, YouTube API tlang/lang fallback, and TTS hardware coordination.
       </p>
       <div style="margin-top: 0.75rem; font-size: 0.875rem">
-        <a
-          href="../screenshots/android-emulator-logcat.txt"
-          target="_blank"
-          style="margin-right: 1.5rem"
-          >📄 Raw Logcat Telemetry</a
-        >
-        <a
-          href="../screenshots/android-emulator-device-info.json"
-          target="_blank"
-          style="margin-right: 1.5rem"
-          >📱 Device Info (JSON)</a
-        >
-        <a href="./android-emulator-video.mp4" target="_blank">🎬 Download Screencast Video</a>
+        <a href="./mochawesome.html" style="margin-right: 1.5rem">📋 Mochawesome Test Report</a>
+        <a href="./playwright/index.html" style="margin-right: 1.5rem">🔍 Playwright E2E Report</a>
+        <a href="./index.html">🌐 Live Web Demo</a>
       </div>
     </div>
 
-    <div class="card">
-      <h2>Target Device Hardware & Environment Details</h2>
+    <div class="card" id="device-telemetry-card">
+      <h2>Device & Hardware Telemetry</h2>
+      <p>Captured live via ADB from the target device/emulator before E2E execution:</p>
       <div class="telemetry-grid">
         <div class="telemetry-card">
           <div class="telemetry-label">Device Model</div>
@@ -242,9 +213,9 @@
           <span class="badge badge-success">HTTP 200</span>
           <span class="badge badge-lang">lang=en / base</span>
           <img
-            src="../screenshots/step1-default-subtitles-detected.png"
+            src="./screenshots/step1-default-subtitles-detected.png"
             alt="Step 1 Screenshot"
-            onerror="this.src = '../screenshots/android-emulator-screenshot.png'"
+            onerror="this.src = './screenshots/android-emulator-screenshot.png'"
           />
         </div>
 
@@ -257,51 +228,54 @@
           <span class="badge badge-tlang">tlang=he</span>
           <span class="badge badge-tlang">tlang=it</span>
           <img
-            src="../screenshots/step2-favorite-languages-fetch.png"
+            src="./screenshots/step2-favorite-languages-fetch.png"
             alt="Step 2 Screenshot"
-            onerror="this.src = '../screenshots/android-emulator-screenshot.png'"
+            onerror="this.src = './screenshots/android-emulator-screenshot.png'"
           />
         </div>
 
         <div class="step-card">
-          <h3>Step 3: YouTube API tlang/lang Fallback</h3>
+          <h3>Step 3: YouTube API tlang & lang Fallback</h3>
           <p>
-            Native shell handles HTTP requests, tries YouTube tlang translation parameters, and
-            falls back to language tracks.
+            Demonstrates API request with <code>tlang</code>, detects invalid/empty response, and
+            automatically triggers <code>lang</code> fallback.
           </p>
-          <span class="badge badge-success">Fallback OK</span>
+          <span class="badge badge-tlang">try: tlang</span>
+          <span class="badge badge-lang">fallback: lang</span>
           <img
-            src="../screenshots/step3-youtube-api-tlang-lang-fallback.png"
+            src="./screenshots/step3-youtube-api-tlang-lang-fallback.png"
             alt="Step 3 Screenshot"
-            onerror="this.src = '../screenshots/android-emulator-screenshot.png'"
+            onerror="this.src = './screenshots/android-emulator-screenshot.png'"
           />
         </div>
 
         <div class="step-card">
-          <h3>Step 4: Network Requests Inspector</h3>
+          <h3>Step 4: Network Panel Inspection</h3>
           <p>
-            Developer can inspect all intercepted timedtext URLs, status codes, duration, and body
-            previews on device.
+            Inspects live requests in the Network Requests Inspector modal with tlang/lang badges,
+            HTTP 200, and preview.
           </p>
-          <span class="badge badge-tlang">Network Logs</span>
+          <span class="badge badge-success">Good Fetch</span>
+          <span class="badge badge-tlang">Preview 250c</span>
           <img
-            src="../screenshots/step4-network-panel-inspection.png"
+            src="./screenshots/step4-network-panel-inspection.png"
             alt="Step 4 Screenshot"
-            onerror="this.src = '../screenshots/android-emulator-screenshot.png'"
+            onerror="this.src = './screenshots/android-emulator-screenshot.png'"
           />
         </div>
 
         <div class="step-card">
           <h3>Step 5: Subtitles View Inspection</h3>
           <p>
-            Parallel aligned subtitles, word highlight synchronization, and hardware TTS loop
-            verification on Android.
+            Inspects parallel subtitles table view element with aligned columns and authentic
+            multi-language dialogue.
           </p>
-          <span class="badge badge-success">TTS Ready</span>
+          <span class="badge badge-success">Aligned</span>
+          <span class="badge badge-lang">Multi-Track</span>
           <img
-            src="../screenshots/step5-subtitles-view-inspection.png"
+            src="./screenshots/step5-subtitles-view-inspection.png"
             alt="Step 5 Screenshot"
-            onerror="this.src = '../screenshots/android-emulator-screenshot.png'"
+            onerror="this.src = './screenshots/android-emulator-screenshot.png'"
           />
         </div>
       </div>
@@ -330,8 +304,7 @@
           "
           onerror="this.parentElement.querySelector('.video-fallback').style.display = 'block'"
         >
-          <source src="./android-emulator-video.mp4" type="video/mp4" />
-          <source src="../screenshots/android-emulator-video.mp4" type="video/mp4" />
+          <source src="./screenshots/android-emulator-video.mp4" type="video/mp4" />
           Your browser does not support the video tag.
         </video>
         <div
@@ -351,19 +324,21 @@
         </div>
       </div>
       <p style="margin-top: 0.75rem">
-        <a href="./android-emulator-video.mp4" target="_blank">📥 Download Screencast MP4 Video</a>
+        <a href="./screenshots/android-emulator-video.mp4" target="_blank"
+          >📥 Download Screencast MP4 Video</a
+        >
       </p>
     </div>
 
     <div class="card">
       <h2>Primary Captured Device Screenshot</h2>
       <p>
-        <a href="../screenshots/android-emulator-screenshot.png" target="_blank"
+        <a href="./screenshots/android-emulator-screenshot.png" target="_blank"
           >Open Full Resolution Screenshot</a
         >
       </p>
       <img
-        src="../screenshots/android-emulator-screenshot.png"
+        src="./screenshots/android-emulator-screenshot.png"
         alt="Android Device Screenshot"
         onerror="this.style.display = 'none'"
       />
@@ -376,7 +351,7 @@ SUBTITLE_FETCH kind=default http=200 bytes=1420 cues=15
 SUBTITLE_FETCH kind=translated lang=he mode=tlang http=200 bytes=1850 cues=15
 SUBTITLE_FETCH kind=translated lang=it mode=lang http=200 bytes=1640 cues=15</pre>
       <p style="margin-top: 0.5rem">
-        <a href="../screenshots/android-emulator-logcat.txt" target="_blank"
+        <a href="./screenshots/android-emulator-logcat.txt" target="_blank"
           >Download Full Logcat File</a
         >
       </p>
@@ -384,7 +359,7 @@ SUBTITLE_FETCH kind=translated lang=it mode=lang http=200 bytes=1640 cues=15</pr
 
     <script>
       // Hydrate device telemetry dynamically if json file is present
-      fetch("../screenshots/android-emulator-device-info.json")
+      fetch("./screenshots/android-emulator-device-info.json")
         .then((r) => (r.ok ? r.json() : null))
         .then((data) => {
           if (!data) return;
